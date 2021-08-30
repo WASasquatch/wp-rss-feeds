@@ -19,3 +19,8 @@ In your posts, or content you can call the shortcode; where attributes in parent
 ```
 [wp-rss-feed feeds="URL_LIST" ( entrylimit="30" charlimit="0" timeout="4" timezone="America/New_York" dateformat="D, dS F Y H:i:s A" dofutureposts="0" )]
 ```
+
+## Example
+```
+[wp-rss-feeds feeds="https://www.blender.org/feed/,http://pixologic.com/blog/feed/" charlimit="300"]
+```
