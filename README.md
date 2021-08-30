@@ -14,4 +14,8 @@ include( get_template_directory() . '/wp-rss-feeds.php' );
 ```
 
 # Usage
-In your posts, or content you can call the shortcode **[wp-rss-feed feeds="URL_LIST" ( entrylimit="30" charlimit="0" timeout="4" timezone="America/New_York" dateformat="D, dS F Y H:i:s A" dofutureposts="0" )]** where attributes in parentheses are optional. 
+In your posts, or content you can call the shortcode; where attributes in parentheses are optional. 
+
+```
+[wp-rss-feed feeds="URL_LIST" ( entrylimit="30" charlimit="0" timeout="4" timezone="America/New_York" dateformat="D, dS F Y H:i:s A" dofutureposts="0" )]
+```
