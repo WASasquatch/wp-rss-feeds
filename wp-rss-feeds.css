@@ -1,0 +1,129 @@
+.wp-rss-feed {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+.wp-rss-feed a, a:link, a:visited, a:active {
+	text-decoration: underline;
+	transition: all 0.2s ease-in-out;
+}
+
+.wp-rss-feed a:hover {
+	color: #46D86C;
+}
+
+.wp-rss-feed-entry {
+    content: "";
+    display: table;
+    clear: both;
+	list-style-type: none; 
+	margin-bottom: 20px; 
+	width: 100%;
+	min-height: 155px;
+	border-radius: 10px;
+	background-color: rgba(255,255,255,0.05);
+	border-top: 3px solid rgba(255,255,255,0.25);
+	overflow: hidden;
+	transition: border-color 0.2s ease-in-out;
+}
+
+.wp-rss-feed-entry:hover {
+	border-color: rgba(70, 216, 108, 1);
+}
+
+.wp-rss-feed-entry-image-container {
+	display: cable-cell;
+	text-align: center;
+	vertical-align: middle;
+	float: left;
+	max-width: 300px;
+	padding: 8px;
+	margin: 10px;
+	border-radius: 4px;
+	background-color: rgba(255,255,255,0.05);
+	transition: background-color 0.2s ease-in-out;
+}
+
+.wp-rss-feed-entry-image {
+	width: 100%;
+	border: 0;
+	margin: 0 auto;
+	vertical-align: middle;
+}
+
+.wp-rss-feed-entry-title {
+	display: block;
+	margin: 0;
+	padding: 8px;
+	background-color: rgba(255,255,255,0.1);
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0.025) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 100%);
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.025) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.1) 100%);
+	background: linear-gradient(to bottom,  rgba(0,0,0,0.025) 0%,rgba(255,255,255,0.1) 50%,rgba(255,255,255,0.1) 100%);
+	font-size: 1em;
+	line-height: 1em;
+	color: #46D86C;
+	font-weight: bold;
+	text-decoration: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.wp-rss-feed-entry-title:hover {
+	color: white;
+}
+
+.wp-rss-feed-entry-sub {
+	display: block;
+	margin: 0 0 5px 0;
+	padding: 5px;
+	border-top: 1px solid (255,255,255,0.125);
+	background-color: rgba(255,255,255,0.025);
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.025) 35%, rgba(255,255,255,0.025) 100%);
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(255,255,255,0.025) 35%,rgba(255,255,255,0.025) 100%);
+	background: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%,rgba(255,255,255,0.025) 35%,rgba(255,255,255,0.025) 100%);
+	font-size: 0.8em;
+	line-height: 1em;
+	color: rgba(255,255,255,0.5);
+}
+
+.wp-rss-feed-entry-creator {
+	font-weight: bold;
+}
+
+.wp-rss-feed-entry-site {
+	font-weight: bold;
+}
+
+.wp-rss-feed-entry-category {
+	font-weight: bold;
+}
+
+.wp-rss-feed-entry-date {
+	font-weight: bold;
+}
+
+.wp-rss-feed-entry-description {
+	display: block;
+	font-size: 0.9em;
+	color: white;
+	padding: 10px;
+}
+
+.wp-rss-feed-entry-desc-readmore {
+	font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+
+	.wp-rss-feed-entry-image-container {
+		display: cable-cell;
+		text-align: center;
+		vertical-align: middle;
+		max-width: 300px;
+		padding: 8px;
+		margin: 10px auto;
+		border-radius: 4px;
+		background-color: rgba(255,255,255,0.05);
+		transition: background-color 0.2s ease-in-out;
+	}
+
+}
