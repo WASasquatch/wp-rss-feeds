@@ -2,7 +2,7 @@
 Aggregate multiple RSS feeds by using shortcode within your WordPress posts or content. 
 
 # Requirements
-WordPress 5.5+ and SimpleXML module (php-xml package). I am not positive what PHP version would be required, I am assuming 5.6+
+WordPress 5.5+ and SimpleXML module (php-xml package). PHP 7.4+ required
 
 # Installation
 Upload the files to your theme directories base. 
