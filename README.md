@@ -7,7 +7,7 @@ WordPress 5.5+ and SimpleXML module (php-xml package). I am not positive what PH
 # Installation
 Upload the files to your theme directories base. 
 
-Inside your functions.php, include wp-rss-feeds.php
+Inside your functions.php, include wp-rss-feeds.php at the end of your file
 ```
 // Inlcude WP RSS Feeds
 include( get_template_directory() . '/wp-rss-feeds.php' );
