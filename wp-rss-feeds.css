@@ -27,7 +27,7 @@
 	width: 100%;
 	min-height: 155px;
 	border-radius: 10px;
-	background-color: rgba(255,255,255,0.05);
+	background-color: #222223;
 	border-top: 3px solid rgba(255,255,255,0.25);
 	overflow: hidden;
 	transition: border-color 0.2s ease-in-out
@@ -73,6 +73,10 @@
 	transition: all 0.2s ease-in-out
 }
 
+.wp-rss-feed-entry-title:hover .wp-rss-feed-entry-title-link {
+	color: white !important;
+}
+
 .wp-rss-feed-entry-title-link:hover {
 	color: white !important;
 }
@@ -86,7 +90,7 @@
 	background: -moz-linear-gradient(top,  rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.025) 35%, rgba(255,255,255,0.025) 100%);
 	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.1) 0%,rgba(255,255,255,0.025) 35%,rgba(255,255,255,0.025) 100%);
 	background: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%,rgba(255,255,255,0.025) 35%,rgba(255,255,255,0.025) 100%);
-	font-size: 0.8em;
+	font-size: 0.65em;
 	line-height: 1em;
 	color: rgba(255,255,255,0.5)
 }
