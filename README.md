@@ -1,6 +1,8 @@
 # wp-rss-feeds
 Aggregate multiple RSS feeds by using shortcode within your WordPress posts or content. 
 
+**Please note:** this is in development software (and may remain in such a state indefinitely). Please do not install this on a WordPress installation if you *do not* have access to FTP or a file manager through cPanel. If a critical error occurs for any reason, you will not have access to WordPress Admin to fix the issue. 
+
 # Requirements
 WordPress 5.5+ and SimpleXML module (php-xml package). PHP 7.4+ required
 
