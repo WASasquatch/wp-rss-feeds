@@ -12,25 +12,31 @@
 			 'feeds' => '',
 			 'entrylimit' => 30,
 			 'charlimit' => 0,
+			 'fullcat' => 0,
+			 'order' => 0,
 			 'timeout' => 4,
 			 'timezone' => 'server',
-			 'dateformat' => 'D, dS F Y H:i:s A',
+			 'dateformat' => 'D, dS F Y g:i:s A',
 			 'dofutureposts' => 0,
 			 'fallback' => 0,
 			 'tmp' => get_temp_dir() . 'rss/'
 		), $atts);
 		extract( $atts );
 
+		// Cast integer attr (is this necessary?)
+		$entrylimit = (int) $entrylimit;
+		$charlimit = (int) $charlimit;
+		$fullcat = (int) $fullcat;
+		$order = (int) $order;
+		$timeout = (int) $timeout;
+		$dofutureposts = (int) $dofutureposts;
+		$fallback = (int) $fallback;
 		
 		$template_dir = get_template_directory();
 		$time = time();
 		$feedfiles = array();
 		$feedsarray = array();
-		$fb = false;
-		
-		// Use fallback live feeds
-		if ( $fallback )
-			$fb = true;
+		$fallback = false;
 
 		// Any feeds available?
 		if ( $feeds == '' )
@@ -61,7 +67,7 @@
 		// Cache directory available?
 		if ( ! ( is_dir ( $tmp ) ) )
 			if ( ! ( @mkdir( $tmp ) ) )
-				$fb = true;
+				$fallback = true;
 
 		// Setup SimpleXML Object Files
 		foreach ( $feeds as $f ) {
@@ -73,14 +79,14 @@
 			$ctm = ( (int) $ct * 3600 );
 
 			// Load live or from cache
-			if ( $ctm > 0 && is_file( $cache ) && ( filemtime($cache) + $ctm > time() ) && ! ( $fb ) ) {
+			if ( $ctm > 0 && is_file( $cache ) && ( filemtime($cache) + $ctm > time() ) && ! ( $fallback ) ) {
 			
 				$rss = @simplexml_load_file( $cache );
 			
 			} else {
 			
 				$rss = @simplexml_load_file( $f );
-				if ( $ctm > 0 && ! ( $fb ) && $rss !== false )
+				if ( $ctm > 0 && ! ( $fallback ) && $rss !== false )
 					$rss->asXML( $cache );
 			
 			}
@@ -93,7 +99,7 @@
 		foreach ( $feedfiles as $v ) {
 			
 			// Channel Title
-			$title = sanitize_text_field( $v->channel->title );
+			$title = sanitize_text_field( (string) $v->channel->title );
 			
 			// Iterate through items
 			if ( isset( $v->channel->item ) ) {
@@ -101,21 +107,21 @@
 				foreach ( $v->channel->item as $item ) {
 					
 					$description = wp_kses( $item->description, array(
-																		'a' => array(
-																				'href' => array(),
-																				'title' => array()
-																				),
-																		'img' => array(
-																				'src' => array(),
-																				'alt' => array()
-																				),
-																		'b' => array(),
-																		'strong' => array(),
-																		'i' => array(),
-																		'u' => array(),
-																		'em' => array(),
-																		'br' => array()
-																	) );
+						'a' => array(
+							'href' => array(),
+							'title' => array()
+						),
+						'img' => array(
+							'src' => array(),
+							'alt' => array()
+						),
+						'b' => array(),
+						'strong' => array(),
+						'i' => array(),
+						'u' => array(),
+						'em' => array(),
+						'br' => array()
+					) );
 					
 					// Extract first image
 					if ( ! ( empty( $description ) ) ) {
@@ -135,44 +141,52 @@
 					$creator = ( isset( $item->children('dc', true)->creator ) ) ? (string) $item->children('dc', true)->creator : $title;
 					
 					// Define Categories
-					$category = '';
+					$category = null;
 					
-					if ( count( $item->category ) > 0 ) {
-						
-						$i = 0;
-						
-						foreach ( $item->category as $cat ) {
-							
-							$suffix = '';
-							
-							if ( $i < count( $item->category )-1 )
-								$suffix = ' > ';
-							
-							// No runaway duplicate categories
-							if ( strpos( $category, (string) $cat ) == false )
-								$category .= sanitize_text_field( (string) $cat ) . $suffix;
-							
-							$i++;
-							
-						}
-						
+					if ( ! ( $fullcat ) ) {
+
+						$category = (string) $item->category[ count( $item->category )-1 ];
+					
 					} else {
 						
-						$category = $title;
+						if ( count( $item->category ) > 0 ) {
+							
+							$i = 0;
+							
+							foreach ( $item->category as $cat ) {
+								
+								$suffix = '';
+								
+								if ( $i < count( $item->category )-1 )
+									$suffix = ' > ';
+								
+								// No runaway duplicate categories
+								if ( strpos( $category, (string) $cat ) == false )
+									$category .= sanitize_text_field( (string) $cat ) . $suffix;
+								
+								$i++;
+								
+							}
+							
+						} else {
+							
+							$category = $title;
+							
+						}
 						
 					}
 					
 					// Define Item Array
 					$item = array(
 					  
-						'site'  => (string) $title,
+						'site'  => $title,
 						'title' => sanitize_text_field( (string) $item->title ),
 						'desc'  => $desc,
 						'link'  => esc_url_raw( (string) $item->link ),
 						'image' => esc_url_raw( $src ),
 						'date'  => $dateTime,
 						'creator' => sanitize_text_field( $creator ),
-						'category' => (string) $category
+						'category' => $category
 						
 					);
 				  
@@ -199,11 +213,23 @@
 			return 'No entries available from feeds(s).';
 
 		// Sort Feed Items by Date
-		usort( $feedsarray, function( $a, $b ) {
+		if ( $order ) {
 			
-			return $b['date'] - $a['date'];
+			usort($feedsarray, function ( $a, $b): int {
+				
+				return $a['date'] <=> $b['date'];
+				
+			});
 			
-		});
+		} else {
+			
+			usort($feedsarray, function ( $a, $b): int {
+				
+				return $b['date'] <=> $a['date'];
+				
+			});
+			
+		}
 
 		$c = 0;
 
@@ -216,13 +242,14 @@
 		// Iterate through entries
 		foreach ( $feedsarray as $feed ) {
 			
-			// Format date by dateformat attr or default
+			// Format date
 			$date = new DateTime();
 			$date->setTimestamp( $feed['date'] );
 			$date->setTimezone( $timezone );
 			
 			// Limit entry description if charlimit attr set
-			$desc = ( $charlimit > 0 && strlen( $feed['desc'] ) > $charlimit ) ? substr( $feed['desc'], 0, $charlimit ) . ' [...] <a class="wp-rss-feed-entry-desc-readmore" href="'. $feed['link'] . '" title="'. $feed['title'] . '">Read more</a>' : $feed['desc'];
+			$desc = ( $charlimit > 0 && strlen( $feed['desc'] ) > $charlimit ) ? substr( $feed['desc'], 0, $charlimit ) . 
+				' [...] <a class="wp-rss-feed-entry-desc-readmore" href="'. $feed['link'] . '" title="'. $feed['title'] . '">Read more</a>' : $feed['desc'];
 			
 			// Limit entries to entrylimit attr or default
 			if ( $c == $entrylimit )
