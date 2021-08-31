@@ -1,5 +1,5 @@
 	<li class="wp-rss-feed-entry">
-		<div class="wp-rss-feed-entry-title"><a href="<?php echo $feed['link']; ?>" title="<?php echo $feed['title']; ?>"><?php echo $feed['title']; ?></a></div>
+		<div class="wp-rss-feed-entry-title"><a class="wp-rss-feed-entry-title-link" href="<?php echo $feed['link']; ?>" target="<?php echo $target; ?>" title="<?php echo $feed['title']; ?>"><?php echo $feed['title']; ?></a></div>
 			<div class="wp-rss-feed-entry-sub">
 				Posted by <span class="wp-rss-feed-entry-creator"><?php echo $feed['creator']; ?></span> 
 				<span class="wp-rss-feed-entry-site">(<?php echo $feed['site']; ?>)</span> <?php if ( ! ( empty( $feed['category'] ) ) ) { ?>in <span class="wp-rss-feed-entry-category"><?php echo $feed['category']; ?></span><?php } ?> on
