@@ -1,15 +1,21 @@
+/* 
+	WP RSS Feeds Style
+	- This default style expects a dark background element and uses transparent backgrounds. 
+*/
+
 .wp-rss-feed {
 	margin: 0 !important;
-	padding: 0 !important;
+	padding: 0 !important
 }
 
 .wp-rss-feed a, a:link, a:visited, a:active {
 	text-decoration: underline;
 	transition: all 0.2s ease-in-out;
+	color: #46D86C
 }
 
 .wp-rss-feed a:hover {
-	color: #46D86C;
+	color: white !important;
 }
 
 .wp-rss-feed-entry {
@@ -24,11 +30,11 @@
 	background-color: rgba(255,255,255,0.05);
 	border-top: 3px solid rgba(255,255,255,0.25);
 	overflow: hidden;
-	transition: border-color 0.2s ease-in-out;
+	transition: border-color 0.2s ease-in-out
 }
 
 .wp-rss-feed-entry:hover {
-	border-color: rgba(70, 216, 108, 1);
+	border-color: rgba(70, 216, 108, 1)
 }
 
 .wp-rss-feed-entry-image-container {
@@ -36,19 +42,19 @@
 	text-align: center;
 	vertical-align: middle;
 	float: left;
-	max-width: 300px;
+	max-width: 400px;
 	padding: 8px;
 	margin: 10px;
 	border-radius: 4px;
 	background-color: rgba(255,255,255,0.05);
-	transition: background-color 0.2s ease-in-out;
+	transition: background-color 0.2s ease-in-out
 }
 
 .wp-rss-feed-entry-image {
 	width: 100%;
 	border: 0;
 	margin: 0 auto;
-	vertical-align: middle;
+	vertical-align: middle
 }
 
 .wp-rss-feed-entry-title {
@@ -64,11 +70,11 @@
 	color: #46D86C;
 	font-weight: bold;
 	text-decoration: none;
-	transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out
 }
 
-.wp-rss-feed-entry-title:hover {
-	color: white;
+.wp-rss-feed-entry-title-link:hover {
+	color: white !important;
 }
 
 .wp-rss-feed-entry-sub {
@@ -82,48 +88,49 @@
 	background: linear-gradient(to bottom,  rgba(0,0,0,0.1) 0%,rgba(255,255,255,0.025) 35%,rgba(255,255,255,0.025) 100%);
 	font-size: 0.8em;
 	line-height: 1em;
-	color: rgba(255,255,255,0.5);
+	color: rgba(255,255,255,0.5)
 }
 
 .wp-rss-feed-entry-creator {
-	font-weight: bold;
+	font-weight: bold
 }
 
 .wp-rss-feed-entry-site {
-	font-weight: bold;
+	font-weight: bold
 }
 
 .wp-rss-feed-entry-category {
-	font-weight: bold;
+	font-weight: bold
 }
 
 .wp-rss-feed-entry-date {
-	font-weight: bold;
+	font-weight: bold
 }
 
 .wp-rss-feed-entry-description {
 	display: block;
 	font-size: 0.9em;
 	color: white;
-	padding: 10px;
+	padding: 10px
 }
 
 .wp-rss-feed-entry-desc-readmore {
-	font-weight: bold;
+	font-weight: bold
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
 
 	.wp-rss-feed-entry-image-container {
 		display: cable-cell;
 		text-align: center;
 		vertical-align: middle;
-		max-width: 300px;
+		width: 100%;
+		max-width: 100%;
 		padding: 8px;
-		margin: 10px auto;
+		margin: 10px 0 10px 0;
 		border-radius: 4px;
 		background-color: rgba(255,255,255,0.05);
-		transition: background-color 0.2s ease-in-out;
+		transition: background-color 0.2s ease-in-out
 	}
 
 }
