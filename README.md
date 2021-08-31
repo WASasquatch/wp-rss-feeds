@@ -11,7 +11,7 @@ Aggregate multiple RSS feeds by using shortcode within your WordPress posts or c
 # Installation
 Upload the files to your theme directories base. 
 
-Inside your functions.php, include wp-rss-feeds.php at the end of your file
+Inside your themes functions.php, include wp-rss-feeds.php at the end of your file
 ```
 // Inlcude WP RSS Feeds
 include( get_template_directory() . '/wp-rss-feeds.php' );
