@@ -14,6 +14,7 @@
 			 'charlimit' => 0,
 			 'fullcat' => 0,
 			 'order' => 0,
+			 'target' => '_blank',
 			 'timeout' => 4,
 			 'timezone' => 'server',
 			 'dateformat' => 'D, dS F Y g:i:s A',
@@ -28,6 +29,7 @@
 		$charlimit = (int) $charlimit;
 		$fullcat = (int) $fullcat;
 		$order = (int) $order;
+		$target = ( in_array( $target, array('_blank','_self','_parent','_top') ) ) ? $target : '_blank';
 		$timeout = (int) $timeout;
 		$dofutureposts = (int) $dofutureposts;
 		$fallback = (int) $fallback;
@@ -123,15 +125,17 @@
 						'br' => array()
 					) );
 					
-					// Extract first image
 					if ( ! ( empty( $description ) ) ) {
 						
+						// Extract first image
 						preg_match('/<img.+src=[\'"](?P<src>.+?)[\'"].*>/i', $description, $image);
-						
 						$src = $image['src'];
 						
 						// Remove Image Links
 						$desc = preg_replace( '/(<a.*?<img.*?>.*?<\/a>)/', '', $description );
+						
+						// Add link targets
+						$desc = str_replace( '<a ', '<a target="' . $target . '" ', $desc );
 						
 					}
 					
@@ -277,7 +281,7 @@
 	function wp_rss_feeds_style() {
 		
 		$style = get_template_directory_uri() . '/wp-rss-feeds.css';
-		wp_enqueue_style('wp-rss-feeds-stylesheet', $style, array(), '0.1.0', 'all');
+		wp_enqueue_style('wp-rss-feeds-stylesheet', $style, array(), rand(100,9999), 'all');
 		
 	}
 
