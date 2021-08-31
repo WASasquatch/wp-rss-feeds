@@ -24,7 +24,7 @@ The following is a list of attributes and their examples or defaults. Attributes
 | `entrylimit` ▫️    | RSS entries will be limited to this integer.       | `30`      |
 | `charlimit` ▫️    | RSS description character limit, followed by read more link. `0` is no limit.       | `0`      |
 | `fullcat` ▫️    | Display full category path `0` will only show current, or last category, `1` is full path.       | `0`      |
-| `order` ▫️    | Order RSS entries by ascending, or descending. Default `0` is ascending.       | `0`      |
+| `order` ▫️    | Order RSS entries by ascending, or descending. Default `0` is ascending, `1` is descending.       | `0`      |
 | `timeout` ▫️    | RSS cache timeout in hours       | `4`      |
 | `timezone` ▫️    | The PHP compatible time zone ID to use with RSS entries publish date. Default is `server` which is the server's time zone.       | `America/New_York`      |
 | `dateformat` ▫️    | PHP `DateTime` compatible date format.       | `D, dS F Y g:i:s A`      |
