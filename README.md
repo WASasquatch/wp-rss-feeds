@@ -14,11 +14,23 @@ include( get_template_directory() . '/wp-rss-feeds.php' );
 ```
 
 # Usage
-In your posts, or content you can call the shortcode; where attributes in parentheses are optional. 
+In your posts, or content you can call `[wp-rss-feeds feeds="URL"]` where `URL` is a list or single URL to a RSS feed.
 
-```
-[wp-rss-feed feeds="URL_LIST" ( entrylimit="30" charlimit="0" timeout="4" timezone="America/New_York" dateformat="D, dS F Y H:i:s A" dofutureposts="0" )]
-```
+The following is a list of attributes and their examples or defaults. Attributes denoted by ▫️ are optional.
+
+| Attribute | Description | Default / Example |
+| :---         |     :---:      |          ---: |
+| `feeds`   | A RSS URL, or RSS URL list seperated by commas.     | `https://example.com/rss` or `https://example.com/rss,https://example2.com/rss`    |
+| `entrylimit` ▫️    | RSS entries will be limited to this integer.       | `30`      |
+| `charlimit` ▫️    | RSS description character limit, followed by read more link. `0` is no limit.       | `0`      |
+| `fullcat` ▫️    | Display full category path `0` will only show current, or last category, `1` is full path.       | `0`      |
+| `order` ▫️    | Order RSS entries by ascending, or descending. Default `0` is ascending.       | `0`      |
+| `timeout` ▫️    | RSS cache timeout in hours       | `4`      |
+| `timezone` ▫️    | The time zone entries publish date should use. Default is `server` which is the server's time zone.       | `server`      |
+| `dateformat` ▫️    | PHP `DateTime` compatible date format.       | `D, dS F Y g:i:s A`      |
+| `dofutureposts` ▫️    | If encountering RSS entries published in the future, discard or display them. Default is discard.       | `0`      |
+| `fallback` ▫️    | Fallback to retrieving live feeds from feeds list. Default `false`       | `0`      |
+| `tmp` ▫️    | Path to the directory to store RSS cache. Default is `get_temp_dir() . 'rss/'` in WordPress cache location.      | `/path/to/tmp/`     |
 
 ## Example
 ```
