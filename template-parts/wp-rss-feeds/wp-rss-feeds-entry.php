@@ -2,7 +2,7 @@
 		<div class="wp-rss-feed-entry-title"><a href="<?php echo $feed['link']; ?>" title="<?php echo $feed['title']; ?>"><?php echo $feed['title']; ?></a></div>
 			<div class="wp-rss-feed-entry-sub">
 				Posted by <span class="wp-rss-feed-entry-creator"><?php echo $feed['creator']; ?></span> 
-				<span class="wp-rss-feed-entry-site">(<?php echo $feed['site']; ?>)</span> in <span class="wp-rss-feed-entry-category"><?php echo $feed['category']; ?></span> on
+				<span class="wp-rss-feed-entry-site">(<?php echo $feed['site']; ?>)</span> <?php if ( ! ( empty( $feed['category'] ) ) ) { ?>in <span class="wp-rss-feed-entry-category"><?php echo $feed['category']; ?></span><?php } ?> on
 				<span class="wp-rss-feed-entry-date"><?php echo $date->format( $dateformat ); ?></span>
 			</div>
 <?php if ( ! ( empty( $feed['image'] ) ) ) { ?>
