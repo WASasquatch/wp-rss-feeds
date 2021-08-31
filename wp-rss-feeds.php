@@ -14,18 +14,23 @@
 			 'charlimit' => 0,
 			 'timeout' => 4,
 			 'timezone' => 'server',
-			 'dateformat' => 'D d m/Y H:i:s A',
+			 'dateformat' => 'D, dS F Y H:i:s A',
 			 'dofutureposts' => 0,
+			 'fallback' => 0,
 			 'tmp' => get_temp_dir() . 'rss/'
 		), $atts);
 		extract( $atts );
 
 		
 		$template_dir = get_template_directory();
-		$time = new DateTimeImmutable();
+		$time = time();
 		$feedfiles = array();
 		$feedsarray = array();
 		$fb = false;
+		
+		// Use fallback live feeds
+		if ( $fallback )
+			$fb = true;
 
 		// Any feeds available?
 		if ( $feeds == '' )
@@ -37,12 +42,19 @@
 		// Setup timezone
 		if ( $timezone == 'server' ) {
 			
-			$timezone = date_default_timezone_get();
+			$timezone = new DateTimeZone( date_default_timezone_get() );
 			
 		} else {
 			
-			if ( ! ( isValidTimezone( $timezone ) ) )
-				$timezone = date_default_timezone_get();
+			if ( ! ( isValidTimezone( $timezone ) ) ) {
+				
+				$timezone = new DateTimeZone( date_default_timezone_get() );
+				
+			} else {
+				
+				$timezone = new DateTimeZone($timezone);
+				
+			}
 			
 		}
 
@@ -117,9 +129,7 @@
 						
 					}
 					
-					// Unify Timezones
-					$date = new DateTimeImmutable( $item->pubDate );
-					$date->setTimezone( new DateTimeZone( $timezone ) );
+					$dateTime = strtotime( $item->pubDate );
 					
 					// Extract creator or use channel title
 					$creator = ( isset( $item->children('dc', true)->creator ) ) ? (string) $item->children('dc', true)->creator : $title;
@@ -160,7 +170,7 @@
 						'desc'  => $desc,
 						'link'  => esc_url_raw( (string) $item->link ),
 						'image' => esc_url_raw( $src ),
-						'date'  => $date->format('Y-m-d H:i:s A'),
+						'date'  => $dateTime,
 						'creator' => sanitize_text_field( $creator ),
 						'category' => (string) $category
 						
@@ -169,8 +179,7 @@
 				// Store or discard future posts
 				if ( ! ( $dofutureposts ) ) {
 					
-					$pubDate = DateTimeImmutable::createFromFormat( 'Y-m-d', $date->format( 'Y-m-d' ) );
-					if ( $pubDate <= $time )
+					if ( $dateTime <= $time )
 						array_push( $feedsarray, $item );
 					
 				} else {
@@ -192,12 +201,11 @@
 		// Sort Feed Items by Date
 		usort( $feedsarray, function( $a, $b ) {
 			
-			return strtotime( $b['date'] ) - strtotime( $a['date'] );
+			return $b['date'] - $a['date'];
 			
 		});
 
 		$c = 0;
-		$date = new DateTimeImmutable( $n->pubDate );
 
 		// Render output		
 		ob_start();
@@ -209,7 +217,9 @@
 		foreach ( $feedsarray as $feed ) {
 			
 			// Format date by dateformat attr or default
-			$date->createFromFormat( $dateformat, $feed['date'] );
+			$date = new DateTime();
+			$date->setTimestamp( $feed['date'] );
+			$date->setTimezone( $timezone );
 			
 			// Limit entry description if charlimit attr set
 			$desc = ( $charlimit > 0 && strlen( $feed['desc'] ) > $charlimit ) ? substr( $feed['desc'], 0, $charlimit ) . ' [...] <a class="wp-rss-feed-entry-desc-readmore" href="'. $feed['link'] . '" title="'. $feed['title'] . '">Read more</a>' : $feed['desc'];
