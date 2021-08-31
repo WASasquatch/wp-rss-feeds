@@ -26,7 +26,7 @@ The following is a list of attributes and their examples or defaults. Attributes
 | `fullcat` ▫️    | Display full category path `0` will only show current, or last category, `1` is full path.       | `0`      |
 | `order` ▫️    | Order RSS entries by ascending, or descending. Default `0` is ascending.       | `0`      |
 | `timeout` ▫️    | RSS cache timeout in hours       | `4`      |
-| `timezone` ▫️    | The PHP compatible time zone ID to use with RSS entries publish date. Default is `server` which is the server's time zone.       | `server`      |
+| `timezone` ▫️    | The PHP compatible time zone ID to use with RSS entries publish date. Default is `server` which is the server's time zone.       | `America/New_York`      |
 | `dateformat` ▫️    | PHP `DateTime` compatible date format.       | `D, dS F Y g:i:s A`      |
 | `dofutureposts` ▫️    | If encountering RSS entries published in the future, discard or display them. Default is discard.       | `0`      |
 | `fallback` ▫️    | Fallback to retrieving live feeds from feeds list. Default `false`       | `0`      |
