@@ -87,9 +87,12 @@
 			
 			} else {
 			
-				$rss = @simplexml_load_file( $f );
-				if ( $ctm > 0 && ! ( $fallback ) && $rss !== false )
-					$rss->asXML( $cache );
+				$xml = @file_get_contents( $f );
+				if ( $xml !== false ) {
+					$rss = @simplexml_load_string( $xml );
+					if ( $ctm > 0 && ! ( $fallback ) && $rss !== false )
+						$rss->asXML( $cache );
+				}
 			
 			}
 				
